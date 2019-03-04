@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include "cost.h"
+#include <iostream>
 
 using std::string;
 using std::vector;
@@ -36,23 +37,24 @@ vector<Vehicle> Vehicle::choose_next_state(map<int, vector<Vehicle>> &prediction
    * @output The best (lowest cost) trajectory corresponding to the next ego
    *   vehicle state.
    *
-   * Functions that will be useful:
-   * 1. successor_states - Uses the current state to return a vector of possible
-   *    successor states for the finite state machine.
-   * 2. generate_trajectory - Returns a vector of Vehicle objects representing
-   *    a vehicle trajectory, given a state and predictions. Note that
-   *    trajectory vectors might have size 0 if no possible trajectory exists
-   *    for the state.
-   * 3. calculate_cost - Included from cost.cpp, computes the cost for a trajectory.
-   *
-   * TODO: Your solution here.
    */
+  auto possible_states = successor_states();
+  vector<float> costs;
+  vector<vector<Vehicle>> final_trajectories;
 
+  for(auto const& state : possible_states) {
+    // generate trajectory
+    auto trajectory = generate_trajectory(state, predictions);
+    if(trajectory.size() > 0) {
+      auto cost = calculate_cost(*this, predictions, trajectory);
+      costs.push_back(cost);
+      final_trajectories.push_back(trajectory);
+    }
+  }
+  auto min_it = std::min_element(costs.begin(), costs.end());
+  int min_index = distance(costs.begin(), min_it);
 
-  /**
-   * TODO: Change return value here:
-   */
-  return generate_trajectory("KL", predictions);
+  return final_trajectories[min_index];
 }
 
 vector<string> Vehicle::successor_states() {
