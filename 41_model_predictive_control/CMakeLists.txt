@@ -6,12 +6,11 @@ add_definitions(-std=c++11)
 set(CXX_FLAGS "-Wall")
 set(CMAKE_CXX_FLAGS "${CXX_FLAGS}")
 
-set(sources src/main.cpp)
-
 include_directories(src/Eigen-3.3)
 include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
 
+set(sources src/main.cpp src/mpc.cpp)
 add_executable(mpc ${sources})
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
