@@ -15,3 +15,6 @@ link_directories(/usr/local/lib)
 
 add_executable(global_kinematic_model src/kinematic_model.cpp)
 target_link_libraries(global_kinematic_model)
+
+add_executable(polyfit src/polyfit.cpp)
+target_link_libraries(polyfit)
