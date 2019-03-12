@@ -62,15 +62,18 @@ int main() {
   }
 
   // Plot values
-  plt::subplot(3, 1, 1);
+  plt::subplot(4, 1, 1);
   plt::title("CTE");
   plt::plot(cte_vals);
-  plt::subplot(3, 1, 2);
+  plt::subplot(4, 1, 2);
   plt::title("Delta (Radians)");
   plt::plot(delta_vals);
-  plt::subplot(3, 1, 3);
+  plt::subplot(4, 1, 3);
   plt::title("Velocity");
   plt::plot(v_vals);
+  plt::subplot(4, 1, 4);
+  plt::title("Position");
+  plt::plot(x_vals, y_vals);
   plt::show();
 
   return 0;
